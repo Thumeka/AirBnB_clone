@@ -19,6 +19,21 @@ class TestBaseModel(unittest.TestCase):
         model2 = BaseModel()
         self.assertNotEqual(self.model.id, model2.id)
 
+    def test_init_kwargs(self):
+        """Test the initialization using a dictionary representation"""
+        data = {
+            'id': 56254,
+            'created_at': '2023-10-11T20:31:11.506554',
+            'updated_at': '2023-10-11T20:31:11.506554',
+            'name': 'ALX SE'
+        }
+        model3 = BaseModel(**data)
+
+        self.assertEqual(model3.id, data['id'])
+        self.assertEqual(model3.created_at.isoformat(), data['created_at'])
+        self.assertEqual(model3.updated_at.isoformat(), data['updated_at'])
+        self.assertEqual(model3.name, data['name'])
+
     def test_str(self):
         """Test the string representation of BaseModel instance"""
         model_str = str(self.model)
