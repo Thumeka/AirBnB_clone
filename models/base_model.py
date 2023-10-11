@@ -20,8 +20,8 @@ class BaseModel:
         return f"[{clsname} ({self.id}) {self.__dict__}]"
 
     def save(self):
-        """Updates the instance update_at attricbute"""
-        self.updated_at = datetime.now()
+        """Updates the instance update_at attribute"""
+        self.updated_at = datetime.today()
 
     def to_dict(self):
         """Returns a dictionary with all keys/values of
