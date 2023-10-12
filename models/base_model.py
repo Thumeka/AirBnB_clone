@@ -3,6 +3,7 @@
 
 from uuid import uuid4
 from datetime import datetime
+from models import storage
 
 
 class BaseModel:
@@ -20,6 +21,8 @@ class BaseModel:
                     value = datetime.strptime(kwargs[key], tformat)
                 if key != "__class__":
                     setattr(self, key, value)
+        else:
+            storage.new(self)
 
     def __str__(self):
         """Return the string representation of the BaseModel instance"""
@@ -29,6 +32,7 @@ class BaseModel:
     def save(self):
         """Updates the instance update_at attribute"""
         self.updated_at = datetime.today()
+        storage.save()
 
     def to_dict(self):
         """Returns a dictionary with all keys/values of
