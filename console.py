@@ -28,6 +28,26 @@ class HBNBCommand(cmd.Cmd):
         print()
         return True
 
+    def do_create(self, arg):
+        """Creates a new instance of a given class"""
+        pass
+
+    def do_show(self, arg):
+        """Prints the string representation of an instances"""
+        pass
+
+    def do_destroy(self, arg):
+        """Destroys an instance"""
+        pass
+
+    def do_all(self, arg):
+        """Prints all string representation of all instances"""
+        pass
+
+    def do_update(self, arg):
+        """Updates an instance by adding or updating an attribute"""
+        pass
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
