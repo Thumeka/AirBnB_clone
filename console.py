@@ -15,6 +15,10 @@ class HBNBCommand(cmd.Cmd):
     """Defines the AirBnB command interpreter"""
     prompt = "(hbnb) "
 
+    def precmd(self, arg):
+        """Parses command input"""
+        pass
+
     def emptyline(EOF):
         """Do nothing on an empty line"""
         pass
