@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+"""Defines unittests for FileStorage"""
 import unittest
 import os
 import json
