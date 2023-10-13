@@ -34,24 +34,25 @@ class TestFileStorage(unittest.TestCase):
     def test_new(self):
         """Test case for 'new' method"""
         mode = BaseModel()
-        self.storage.new(model)
-        key = model.__class__.__name__ + "." + model.id
+        self.storage.new(mode)
+        key = mode.__class__.__name__ + "." + mode.id
         self.assertIn(key, self.storage.all())
 
     def test_save(self):
         """Test case for 'save' method"""
         mode = BaseModel()
-        self.storage.new(model)
+        self.storage.new(mode)
         self.storage.save()
         self.assertTrue(os.path.exists(FileStorage._FileStorage__file_path))
+
     def test_reload(self):
         """Test case for 'reload' method"""
         mode = BaseModel()
-        self.storage.new(model)
+        self.storage.new(mode)
         self.storage.save()
         self.storage._FileStorage__objects.clear()
         self.storage.reload()
-        key = model.__class__.__name__ + "." + model.id
+        key = mode.__class__.__name__ + "." + mode.id
         self.assertIn(key, self.storage.all())
 
 
