@@ -1,17 +1,17 @@
 #!/usr/bin/python3
 """Define BaseModel Class"""
-
-from uuid import uuid4
+import json
+import uuid
 from datetime import datetime
-from models import storage
-
+from . import storage
 
 class BaseModel:
     """Represents BaseModel of AirBnB Clone"""
 
     def __init__(self, *args, **kwargs):
         """Initializes instance of BaseModel"""
-        self.id = str(uuid4())
+
+        self.id = str(uuid.uuid4())
         self.created_at = datetime.now()
         self.updated_at = self.created_at
         tformat = "%Y-%m-%dT%H:%M:%S.%f"
@@ -40,5 +40,5 @@ class BaseModel:
         obj_dict = self.__dict__.copy()
         obj_dict['__class__'] = self.__class__.__name__
         obj_dict['created_at'] = self.created_at.isoformat()
-        obj_dict['updated_at'] = self.created_at.isoformat()
+        obj_dict['updated_at'] = self.updated_at.isoformat()
         return obj_dict

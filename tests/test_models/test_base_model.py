@@ -56,8 +56,8 @@ class TestBaseModel(unittest.TestCase):
         self.assertEqual(model_dict['created_at'],
                          self.model.created_at.isoformat())
         self.assertAlmostEqual(
-            model_dict['updated_at'], self.model.created_at.isoformat())
+            model_dict['updated_at'], self.model.updated_at.isoformat())
 
 
-if __name__ == 'main':
+if __name__ == "__main__":
     unittest.main()

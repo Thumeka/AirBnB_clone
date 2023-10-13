@@ -12,7 +12,7 @@ from models.review import Review
 from models.state import State
 
 
-class FileStorage():
+class FileStorage:
     """Serialize and deserialize json files"""
 
     """Private class attributes"""
@@ -26,7 +26,7 @@ class FileStorage():
     def new(self, obj):
         """Sets in __objects the obj with key <obj class name>.id"""
         if obj is not None:
-            key = '{}.{}'.format(obj.__obj.__class__.__name__, obj.id)
+            key = '{}.{}'.format(obj.__class__.__name__, obj.id)
             FileStorage.__objects[key] = obj
 
     def save(self):
@@ -41,11 +41,15 @@ class FileStorage():
 
     def reload(self):
         """Deserializes the JSON file to __objects"""
-        try:
+        if os.path.isfile(FileStorage.__file_path):
             with open(FileStorage.__file_path, 'r') as f:
-                load_data = json.load(f)
-                for key, obj_data in load_data.items():
-                    obj = eval(obj_data["__class__"])(**obj_data)
-                    self.__objects[key] = obj
-        except FileNotFoundError:
-            pass
+                try:
+                    load_data = json.load(f)
+                    for key, obj_data in load_data.items():
+                        class_name = obj_data.get("__class__")
+                        if class_name in globals():
+                            obj_class = globals()[class_name]
+                            obj = obj_class(**obj_data)
+                            FileStorage.__objects[key] = obj
+                except Exception:
+                    pass
