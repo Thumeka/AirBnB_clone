@@ -11,6 +11,11 @@ from models.amenity import Amenity
 from models.review import Review
 
 
+def parse(arg):
+    """helps to parse user typed input"""
+    return tuple(arg.split())
+
+
 class HBNBCommand(cmd.Cmd):
     """Defines the AirBnB command interpreter"""
     prompt = "(hbnb) "
@@ -91,17 +96,15 @@ class HBNBCommand(cmd.Cmd):
         """Prints all string representation of all instances"""
         args = parse(arg)
         obj_list = []
-        if len(arg) == 0:
-            for objs in storage.all().values():
-                obj_list.append(objs)
-            print(obj_list)
-        elif args[0] in HBNBCommand.classes:
-            for key, objs in storage.all().items():
-                if args[0] in key:
-                    obj_list.append(objs)
-                print(obj_list)
-        else:
+        if len(args) > 0 and args[0] not in HBNBCommand.classes:
             print("** class doesn't exist **")
+        else:
+            for objs in storage.all().values():
+                if len(args) > 0 and args[0] == objs.__class__.__name__:
+                    obj_list.append(objs.__str__())
+                elif len(args) == 0:
+                    obj_list.append(objs.__str__())
+            print(obj_list)
 
     def do_update(self, arg):
         """Updates an instance by adding or updating an attribute"""
@@ -137,10 +140,6 @@ class HBNBCommand(cmd.Cmd):
             print(count)
         else:
             print("** class doesn't exist **")
-
-    def parse(arg):
-        """helps to parse user typed input"""
-        return tuple(arg.split())
 
 
 if __name__ == '__main__':
