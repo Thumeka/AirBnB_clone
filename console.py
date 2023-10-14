@@ -20,13 +20,13 @@ class HBNBCommand(cmd.Cmd):
     """Defines the AirBnB command interpreter"""
     prompt = "(hbnb) "
     classes = {
-        'BaseModel': BaseModel,
-        'User': User,
-        'Place': Place,
-        'City': City,
-        'Amenity': Amenity,
-        'State': State,
-        'Review': Review
+        "BaseModel": BaseModel,
+        "User": User,
+        "Place": Place,
+        "City": City,
+        "Amenity": Amenity,
+        "State": State,
+        "Review": Review
     }
 
     def emptyline(self):
@@ -49,7 +49,7 @@ class HBNBCommand(cmd.Cmd):
         elif arg not in HBNBCommand.classes:
             print("** class doesn't exist **")
         else:
-            instance = eval(arg)()
+            instance = HBNBCommand.classes[arg]()
             instance.save()
             print(instance.id)
 
@@ -58,7 +58,7 @@ class HBNBCommand(cmd.Cmd):
         if len(arg) == 0:
             print("** class name missing **")
             return
-        args = parse(arg)
+        args = self.parse(arg)
         if args[0] not in HBNBCommand.classes:
             print("** class doesn't exist **")
             return
@@ -94,29 +94,37 @@ class HBNBCommand(cmd.Cmd):
 
     def do_all(self, arg):
         """Prints all string representation of all instances"""
-        args = parse(arg)
+        args = self.parse(arg)
         obj_list = []
         if len(args) > 0 and args[0] not in HBNBCommand.classes:
             print("** class doesn't exist **")
         else:
             for objs in storage.all().values():
-                if len(args) > 0 and args[0] == objs.__class__.__name__:
-                    obj_list.append(objs.__str__())
-                elif len(args) == 0:
-                    obj_list.append(objs.__str__())
+                obj_list.append(objs)
             print(obj_list)
+        elif args[0] in HBNBCommand.classes:
+            for key, objs in storage.all().items():
+                if args[0] in key:
+                    obj_list.append(objs)
+                print(obj_list)
+        else:
+            print("** class doesn't exist **")
 
     def do_update(self, arg):
         """Updates an instance by adding or updating an attribute"""
-        args = parse(arg)
+        args = self.parse(arg)
         if len(args) >= 4:
             key = "{}.{}".format(args[0], args[1])
-            cast = type(eval(args[3]))
-            line3 = args[3]
-            line3 = line3.strip('"')
-            line3 = line3.strip("'")
-            setattr(storage.all()[key], args[2], cast(line3))
-            storage.all()[key].save()
+            if key in storage.all():
+                cast = type(eval(args[3]))
+                line3 = args[3]
+                line3 = line3.strip('"')
+                line3 = line3.strip("'")
+                setattr(storage.all()[key], args[2], cast(line3))
+                storage.all()[key].save()
+                print(f"Atrribute '{args[2]}' updated for object '{key}'")
+            else:
+                print("** no instance found **")
         elif len(args) == 0:
             print("** class name missing **")
         elif args[0] not in HBNBCommand.classes:
