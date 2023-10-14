@@ -138,7 +138,6 @@ class HBNBCommand(cmd.Cmd):
         else:
             print("** class doesn't exist **")
 
-    @staticmethod
     def parse(arg):
         """helps to parse user typed input"""
         return tuple(arg.split())
