@@ -15,13 +15,13 @@ class HBNBCommand(cmd.Cmd):
     """Defines the AirBnB command interpreter"""
     prompt = "(hbnb) "
     classes = {
-        'BaseModel': BaseModel,
-        'User': User,
-        'Place': Place,
-        'City': City,
-        'Amenity': Amenity,
-        'State': State,
-        'Review': Review
+        "BaseModel": BaseModel,
+        "User": User,
+        "Place": Place,
+        "City": City,
+        "Amenity": Amenity,
+        "State": State,
+        "Review": Review
     }
 
     def emptyline(self):
@@ -44,7 +44,7 @@ class HBNBCommand(cmd.Cmd):
         elif arg not in HBNBCommand.classes:
             print("** class doesn't exist **")
         else:
-            instance = eval(arg)()
+            instance = HBNBCommand.classes[arg]()
             instance.save()
             print(instance.id)
 
@@ -89,19 +89,26 @@ class HBNBCommand(cmd.Cmd):
 
     def do_all(self, arg):
         """Prints all string representation of all instances"""
-        args = parse(arg)
+        args = self.parse(arg)
         obj_list = []
         if len(arg) == 0:
             for objs in storage.all().values():
                 obj_list.append(objs)
-            print(obj_list)
-        elif args[0] in HBNBCommand.classes:
-            for key, objs in storage.all().items():
-                if args[0] in key:
-                    obj_list.append(objs)
-                print(obj_list)
         else:
-            print("** class doesn't exist **")
+            args = self.parse(arg)
+            if args[0] in HBNBCommand.classes:
+                for key, objs in storage.all().items():
+                    if args[0] in key:
+                        obj_list.append(objs)
+            else:
+                print("** class doesn't exist **")
+                return
+        for obj in obj_list:
+            print(obj)
+
+    def parse(self, arg):
+        """helps to parse user typed input"""
+        return tuple(arg.split())
 
     def do_update(self, arg):
         """Updates an instance by adding or updating an attribute"""
@@ -137,10 +144,6 @@ class HBNBCommand(cmd.Cmd):
             print(count)
         else:
             print("** class doesn't exist **")
-
-    def parse(arg):
-        """helps to parse user typed input"""
-        return tuple(arg.split())
 
 
 if __name__ == '__main__':
