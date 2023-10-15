@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """Defines the console"""
 import cmd
+import json
 from models import storage
 from models.base_model import BaseModel
 from models.user import User
@@ -135,11 +136,9 @@ class HBNBCommand(cmd.Cmd):
 
     def do_count(self, arg):
         """show count of instances"""
+        args = arg.split('.')
         if arg in HBNBCommand.classes:
-            count = 0
-            for key, objs in storage.all().items():
-                if arg in key:
-                    count += 1
+            count = sum(1 for key in storage.all() if arg in key)
             print(count)
         else:
             print("** class doesn't exist **")
