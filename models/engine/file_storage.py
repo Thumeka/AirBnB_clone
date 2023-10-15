@@ -45,7 +45,7 @@ class FileStorage:
                'City': City, 'Amenity': Amenity, 'State': State,
                'Review': Review}
 
-        if os.path.exists(FileStorage.__file_path) is True:
+        if os.path.exists(FileStorage.__file_path):
             with open(FileStorage.__file_path, 'r') as f:
                 for key, value in json.load(f).items():
                     self.new(dct[value['__class__']](**value))
