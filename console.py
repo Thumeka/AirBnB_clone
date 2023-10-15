@@ -43,6 +43,21 @@ class HBNBCommand(cmd.Cmd):
         print()
         return True
 
+    def default(self, arg):
+        """Default behavior for cmd module"""
+        mthds = ['create', 'show', 'update', 'all', 'destroy', 'count']
+        if '.' in arg and '(' in arg and ')' in arg:
+            cls = arg.split('.')
+            cmd = cls[1].split('(')
+            args = cmd[1].split(')')
+
+            if cls[0] in HBNBCommand.classes and cmd[0] in mthds:
+                arg = cmd[0] + ' ' + cls[0] + ' ' + args[0]
+                return self.onecmd(arg)
+
+        print("*** Unknown syntax: {}".format(arg))
+        return False
+
     def do_create(self, arg):
         """Creates a new instance of a given class"""
         if len(arg) == 0:
