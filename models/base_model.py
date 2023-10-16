@@ -27,7 +27,7 @@ class BaseModel:
     def __str__(self):
         """Return the string representation of the BaseModel instance"""
         clsname = self.__class__.__name__
-        return f"[{clsname} ({self.id}) {self.__dict__}]"
+        return f"[{clsname}] ({self.id}) {self.__dict__}"
 
     def save(self):
         """Updates the instance update_at attribute"""
