@@ -147,7 +147,7 @@ class HBNBCommand(cmd.Cmd):
         elif len(args) == 2:
             print("** attribute name missing **")
         else:
-            print("** value name missing **")
+            print("** value missing **")
 
     def do_count(self, arg):
         """show count of instances"""
