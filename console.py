@@ -135,7 +135,7 @@ class HBNBCommand(cmd.Cmd):
                 setattr(storage.all()[key], args[2], cast(line3))
                 storage.all()[key].save()
             else:
-                print("** class doesn't exist **")
+                print("** no instance found **")
         elif len(args) == 0:
             print("** class name missing **")
         elif args[0] not in HBNBCommand.classes:
@@ -147,7 +147,7 @@ class HBNBCommand(cmd.Cmd):
         elif len(args) == 2:
             print("** attribute name missing **")
         else:
-            print("** value missing **")
+            print("** value name missing **")
 
     def do_count(self, arg):
         """show count of instances"""
