@@ -36,7 +36,7 @@ https://developer.mozilla.org/en-US/
 """
 import sys
 import requests
-
+import os
 
 def __print_stdout(msg):
     """Print message in STDOUT
