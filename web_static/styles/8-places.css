@@ -59,7 +59,7 @@ div.number_bathrooms {
 }
 div.user,
 div.description {
-  text-align: left;
+  text-align: center;
   margin-bottom: 10px;
   margin-top: 10px;
 }
