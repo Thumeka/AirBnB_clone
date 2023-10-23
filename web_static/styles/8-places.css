@@ -49,13 +49,13 @@ div.number_bathrooms {
   background-repeat: no-repeat;
 }
 .max_guest {
-  background-image: url("../images/icon_group.png");
+  background-image: url("https://s3.amazonaws.com/intranet-projects-files/holbertonschool-higher-level_programming+/268/icon_group.png");
 }
 .number_rooms {
-  background-image: url("../images/icon_bed.png");
+  background-image: url("https://s3.amazonaws.com/intranet-projects-files/holbertonschool-higher-level_programming+/268/icon_bed.png");
 }
 .number_bathrooms {
-  background-image: url("../images/icon_bath.png");
+  background-image: url("https://s3.amazonaws.com/intranet-projects-files/holbertonschool-higher-level_programming+/268/icon_bath.png");
 }
 div.user,
 div.description {
